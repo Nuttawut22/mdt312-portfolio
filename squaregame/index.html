@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Game - MDT312 Assignment</title>
+    <!-- เชื่อมโยง External CSS โดยถอยกลับไป 1 ชั้นโฟลเดอร์ -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* สไตล์เฉพาะสำหรับหน้ามินิเกม Square Game */
+        .game-board {
+            width: 100%;
+            height: 350px;
+            background-color: #f1f2f6;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            position: relative;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .target-square {
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .target-square:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <h1 class="logo">Square Game</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="../index.html">หน้าแรก Portfolio</a></li>
+                    <li><a href="index.html" class="active">Square Game</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="profile-section" style="display: block; text-align: center;">
+            <h2>มินิเกมฝึกความเร็ว (Square Game)</h2>
+            <p class="subtitle">คลิกที่ช่องสี่เหลี่ยมให้เร็วที่สุดเท่าที่จะทำได้ภายในเวลาที่กำหนด</p>
+            
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <div style="display: flex; justify-content: space-around; font-weight: 500; font-size: 1.1rem; color: #2c3e50;">
+                <span>คะแนน: <strong id="score" style="color: #3498db;">0</strong></span>
+                <span>เวลาที่เหลือ: <strong id="timer" style="color: #e74c3c;">30</strong> วินาที</span>
+            </div>
+
+            <!-- พื้นที่สำหรับเล่นเกม -->
+            <div class="game-board" id="gameBoard">
+                <div class="target-square" id="targetSquare"></div>
+            </div>
+
+            <div>
+                <button id="startBtn" class="btn-small" style="padding: 10px 25px; font-size: 1rem; border: none; cursor: pointer; background-color: #2ecc71;">เริ่มเกม</button>
+            </div>
+
+            <div style="margin-top: 30px; text-align: left;">
+                <a href="../index.html" class="btn-small" style="padding: 8px 16px;">&larr; กลับหน้าหลัก Portfolio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Nattawut Jehma | MDT312 Web Programming</p>
+        </div>
+    </footer>
+
+    <!-- เชื่อมโยง External JavaScript โดยถอยกลับไป 1 ชั้นโฟลเดอร์ -->
+    <script src="../js/main.js"></script>
+    <script>
+        // สคริปต์ตัวอย่างเบื้องต้นสำหรับควบคุมการทำงานของมินิเกม
+        const startBtn = document.getElementById('startBtn');
+        const targetSquare = document.getElementById('targetSquare');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const gameBoard = document.getElementById('gameBoard');
+
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let timerInterval;
+
+        targetSquare.style.display = 'none';
+
+        startBtn.addEventListener('click', () => {
+            score = 0;
+            timeLeft = 30;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            startBtn.style.display = 'none';
+            targetSquare.style.display = 'block';
+
+            moveSquare();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    clearTimeout(gameInterval);
+                    targetSquare.style.display = 'none';
+                    startBtn.style.display = 'inline-block';
+                    startBtn.textContent = 'เล่นอีกครั้ง';
+                    alert('หมดเวลา! คะแนนของคุณคือ: ' + score);
+                }
+            }, 1000);
+        });
+
+        targetSquare.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = score;
+            moveSquare();
+        });
+
+        function moveSquare() {
+            const maxX = gameBoard.clientWidth - targetSquare.clientWidth;
+            const maxY = gameBoard.clientHeight - targetSquare.clientHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            targetSquare.style.left = randomX + 'px';
+            targetSquare.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+</html>
