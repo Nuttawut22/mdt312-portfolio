@@ -3,115 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - ณัฐวุฒิ เจะมะ | MDT312</title>
-    <!-- เชื่อมโยง External CSS -->
-    <link rel="stylesheet" href="css/main.css">
-    <!-- Google Fonts สำหรับฟอนต์ภาษาไทยที่ดูทันสมัยและสะอาดตา -->
+    <title>Square Game - MDT312 Assignment</title>
+    <!-- เชื่อมโยง External CSS โดยถอยกลับไป 1 ชั้นโฟลเดอร์ -->
+    <link rel="stylesheet" href="../css/main.css">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome สำหรับไอคอนโซเชียลมีเดีย -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* สไตล์เฉพาะสำหรับหน้ามินิเกม Square Game */
+        .game-board {
+            width: 100%;
+            height: 350px;
+            background-color: #f1f2f6;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            position: relative;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .target-square {
+            width: 50px;
+            height: 50px;
+            background-color: #e74c3c;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .target-square:hover {
+            background-color: #c0392b;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header & Navigation Bar -->
     <header>
         <div class="container nav-container">
-            <h1 class="logo">Nattawut's Portfolio</h1>
+            <h1 class="logo">Square Game</h1>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html" class="active">หน้าแรก</a></li>
-                    <li><a href="project.html">โปรเจกต์ทั้งหมด</a></li>
+                    <li><a href="../index.html">หน้าแรก Portfolio</a></li>
+                    <li><a href="index.html" class="active">Square Game</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="container">
-        
-        <!-- Profile Section -->
-        <section class="profile-section">
-            <div class="profile-img-container">
-                <!-- Relative File Path สำหรับรูปโปรไฟล์ -->
-                <img src="pic/profile.jpg" alt="รูปโปรไฟล์ ณัฐวุฒิ เจะมะ" class="profile-img">
-            </div>
-            <div class="profile-info">
-                <h2>ณัฐวุฒิ เจะมะ</h2>
-                <p class="subtitle">นักศึกษาและนักพัฒนาเว็บเบื้องต้น (MDT312 Web Programming)</p>
-                
-                <div class="bio-details">
-                    <p><strong>งานอดิเรก:</strong> พัฒนาเว็บไซต์, ศึกษาเทคโนโลยีใหม่ ๆ และทดลองเขียนโปรแกรม</p>
-                    <p><strong>ความสนใจ:</strong> สนใจด้าน 3D และกราฟิกดีไซน์</p>
-                    <p><strong>ทักษะและความสามารถ:</strong></p>
-                    <div class="skills-tags">
-                        <span class="tag">Frontend Web Development</span>
-                        <span class="tag">HTML5</span>
-                        <span class="tag">CSS3</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Responsive Design</span>
-                    </div>
-                </div>
+        <section class="profile-section" style="display: block; text-align: center;">
+            <h2>มินิเกมฝึกความเร็ว (Square Game)</h2>
+            <p class="subtitle">คลิกที่ช่องสี่เหลี่ยมให้เร็วที่สุดเท่าที่จะทำได้ภายในเวลาที่กำหนด</p>
+            
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
 
-                <!-- Social Media Links (เปิดในแท็บใหม่) -->
-                <div class="social-links">
-                    <a href="https://www.facebook.com/natawoot.jehma?locale=th_TH" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://www.instagram.com/anasjmnt/" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                </div>
+            <div style="display: flex; justify-content: space-around; font-weight: 500; font-size: 1.1rem; color: #2c3e50;">
+                <span>คะแนน: <strong id="score" style="color: #3498db;">0</strong></span>
+                <span>เวลาที่เหลือ: <strong id="timer" style="color: #e74c3c;">30</strong> วินาที</span>
+            </div>
+
+            <!-- พื้นที่สำหรับเล่นเกม -->
+            <div class="game-board" id="gameBoard">
+                <div class="target-square" id="targetSquare"></div>
+            </div>
+
+            <div>
+                <button id="startBtn" class="btn-small" style="padding: 10px 25px; font-size: 1rem; border: none; cursor: pointer; background-color: #2ecc71;">เริ่มเกม</button>
+            </div>
+
+            <div style="margin-top: 30px; text-align: left;">
+                <a href="../index.html" class="btn-small" style="padding: 8px 16px;">&larr; กลับหน้าหลัก Portfolio</a>
             </div>
         </section>
-
-        <!-- Assignments Section (เชื่อมโยงงานในห้องเรียนทั้ง 5 งาน) -->
-        <section class="assignments-section">
-            <h3>ผลงานและชิ้นงานในห้องเรียน (Assignments)</h3>
-            <div class="assignment-grid">
-                
-                <div class="assignment-card">
-                    <h4>1. Cinnamon Roll Wreath</h4>
-                    <p>สูตรขนมปังและวิธีทำอาหารเมนูคริสต์มาสแสนอร่อย</p>
-                    <a href="recipe.html" class="btn-small">ดูชิ้นงาน</a>
-                </div>
-
-                <div class="assignment-card">
-                    <h4>2. Pizza Dip Recipe</h4>
-                    <p>หน้าเว็บแนะนำสูตรอาหารและวิธีทำพิซซ่าดิป</p>
-                    <a href="recipe_2.html" class="btn-small">ดูชิ้นงาน</a>
-                </div>
-
-                <div class="assignment-card">
-                    <h4>3. Personal Blog</h4>
-                    <p>หน้าบทความและบันทึกเรื่องราวส่วนตัว</p>
-                    <a href="blog/index.html" class="btn-small">ดูชิ้นงาน</a>
-                </div>
-
-                <div class="assignment-card">
-                    <h4>4. Register and Login</h4>
-                    <p>ระบบสมัครสมาชิกและเข้าสู่ระบบด้วย JavaScript</p>
-                    <a href="login.html" class="btn-small">ดูชิ้นงาน</a>
-                </div>
-
-                <div class="assignment-card">
-                    <h4>5. Square Game</h4>
-                    <p>มินิเกมฝึกทักษะความเร็วและความแม่นยำ</p>
-                    <a href="squaregame/index.html" class="btn-small">ดูชิ้นงาน</a>
-                </div>
-
-            </div>
-        </section>
-
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Nattawut Jehma. All Rights Reserved. | MDT312 Web Programming</p>
+            <p>&copy; 2026 Nattawut Jehma | MDT312 Web Programming</p>
         </div>
     </footer>
 
-    <!-- เชื่อมโยง External JavaScript -->
-    <script src="js/main.js"></script>
+    <!-- เชื่อมโยง External JavaScript โดยถอยกลับไป 1 ชั้นโฟลเดอร์ -->
+    <script src="../js/main.js"></script>
+    <script>
+        // สคริปต์ตัวอย่างเบื้องต้นสำหรับควบคุมการทำงานของมินิเกม
+        const startBtn = document.getElementById('startBtn');
+        const targetSquare = document.getElementById('targetSquare');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const gameBoard = document.getElementById('gameBoard');
+
+        let score = 0;
+        let timeLeft = 30;
+        let gameInterval;
+        let timerInterval;
+
+        targetSquare.style.display = 'none';
+
+        startBtn.addEventListener('click', () => {
+            score = 0;
+            timeLeft = 30;
+            scoreDisplay.textContent = score;
+            timerDisplay.textContent = timeLeft;
+            startBtn.style.display = 'none';
+            targetSquare.style.display = 'block';
+
+            moveSquare();
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    clearTimeout(gameInterval);
+                    targetSquare.style.display = 'none';
+                    startBtn.style.display = 'inline-block';
+                    startBtn.textContent = 'เล่นอีกครั้ง';
+                    alert('หมดเวลา! คะแนนของคุณคือ: ' + score);
+                }
+            }, 1000);
+        });
+
+        targetSquare.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = score;
+            moveSquare();
+        });
+
+        function moveSquare() {
+            const maxX = gameBoard.clientWidth - targetSquare.clientWidth;
+            const maxY = gameBoard.clientHeight - targetSquare.clientHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            targetSquare.style.left = randomX + 'px';
+            targetSquare.style.top = randomY + 'px';
+        }
+    </script>
 </body>
 </html>
