@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Login</title>
+		<script type="text/javascript" src="login.js"></script>
+		<style>
+			body {
+				margin: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="myLogin" id="myLogin">
+			<fieldset>
+				<legend>Login</legend>
+				Username:
+				<input type="text" name="username" id="username" required>
+				<br>
+
+				Password:
+				<input type="password" name="password" required>
+				<br>
+
+				<input type="submit" value="Login" id="loginBtn">
+				<input type="reset" value="Clear" id="clearBtn">
+			</fieldset>
+
+			<div class="register-link">
+				ยังไม่มีบัญชี?
+				<a href="register.html">สมัครสมาชิกที่นี่</a>
+			</div>
+		</form>
+	</body>
+</html>
